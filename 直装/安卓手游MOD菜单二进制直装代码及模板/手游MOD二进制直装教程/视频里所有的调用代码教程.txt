@@ -1,0 +1,135 @@
+ ------------------------------------------------------------------------------------------------------------------------------------------
+
+本教程作者灭仙小源
+
+QQ2938990845
+
+葫芦侠社区板块搜索灭仙小源
+
+
+1.首先反编译打开游戏安装包里的XML文件
+
+复制以下权限代码，保证直装悬浮窗正常运行
+
+    <!-- 此应用可显示在其他应用上方 -->
+ <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+ 
+ 粘贴到游戏XML文件里第一个权限的上面(如下所示)
+ 
+<!-- 此应用可显示在其他应用上方 -->
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+<!-- 拥有完全的网络访问权限 -->
+<uses-permission android:name="android.permission.INTERNET" />
+
+ 然后保存编译即可
+ 
+ ------------------------------------------------------------------------------------------------------------------------------------------
+ 
+ 2.复制以下代码
+ 
+ android:debuggable="true"
+ 
+ 粘贴到游戏安装包里XML文件的
+ 
+第一个
+ 
+<application
+ 
+这段代码的里面在
+ 
+android:name
+
+的下方(如下所示)
+
+android:name="com.nidong.qwdj.oppo.MyApp"
+android:debuggable="true"
+
+然后保存编译即可
+
+ ------------------------------------------------------------------------------------------------------------------------------------------
+
+3.反编译打开已打包好的小源MOD直装模板安装包里的XML文件
+
+然后复制倒数第一个
+
+ <service
+ 
+里的整段代码(如下所示)
+
+<service
+android:name="mxxy.game.mod.FloatServiceView" />
+
+复制整段粘贴到游戏安装包里的XML文件的第一个
+
+</activity>
+</activity
+
+的中间(如下所示)
+
+</activity>
+<service
+android:name="mxxy.game.mod.FloatServiceView" />
+</activity
+
+然后保存编译即可
+
+ ------------------------------------------------------------------------------------------------------------------------------------------
+4.打开已经打包好的小源MOD直装模板安装包
+
+打开dex文件
+
+进入小源MOD直装模板的启动页面文件
+(提示:可用mt管理启动Activity服务，然后打开游戏界面，就可抓到启动页路径)
+
+
+一般都是复制启动页最后的一段代码
+
+invoke-static {p0}, Lmxxy/game/mod/FloatStartService;->load(Landroid/content/Context;)V
+
+这里{p0}有时候可能是v几来着
+
+要手动改成p0
+
+复制粘贴到游戏的启动页文件
+
+然后点击导航找到
+
+onCreate
+
+这个段代码的下方空旷处
+
+粘贴以上代码(如下所示)
+
+method protected onCreate(Landroid/os/Bundle;)V
+registers 4
+param p1, "savedInstanceState"  # Landroid/os/Bundle;
+annotation build Landroid/support/annotation/Nullable;
+end annotation
+end param
+
+invoke-static {p0}, Lload/tencent/lib/FloatStartService;->load(Landroid/content/Context;)V
+(怎么判断这段代码是不是我们要复制的代码
+
+首先看load/tencent/lib是不是就是你的直装模板包名
+
+其次是看它->load或者其它跳转代码
+
+跳转代码后面是不是路径即可，一般都是在直装模板最后那一段)
+
+
+然后保存编译即可
+
+ ------------------------------------------------------------------------------------------------------------------------------------------
+
+
+(注意)该教程代码只适合小源MOD直装模板
+如下所示范的代码仅供参考，游戏不同文件代码不一致
+
+(注意)该教程代码只适合小源MOD直装模板
+如下所示范的代码仅供参考，游戏不同文件代码不一致
+
+(注意)该教程代码只适合小源MOD直装模板
+如下所示范的代码仅供参考，游戏不同文件代码不一致
+
+ ------------------------------------------------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,1 @@
+pm path com.yingxiong.hero.f399 |sed -E  's/(.*):(.*)/\2/'|xargs pm install -r --abi armeabi-v7a

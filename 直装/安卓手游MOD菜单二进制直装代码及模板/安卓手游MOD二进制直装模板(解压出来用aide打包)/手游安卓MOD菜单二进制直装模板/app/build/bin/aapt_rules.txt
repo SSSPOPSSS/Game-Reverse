@@ -1,0 +1,12 @@
+# view AndroidManifest.xml #generated:33
+-keep class com.mycompany.library.LibraryActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:29
+-keep class com.mycompany.library2.LibraryActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:27
+-keep class mxxy.game.mod.FloatServiceView { <init>(...); }
+
+# view AndroidManifest.xml #generated:17
+-keep class mxxy.game.mod.MainActivity { <init>(...); }
+

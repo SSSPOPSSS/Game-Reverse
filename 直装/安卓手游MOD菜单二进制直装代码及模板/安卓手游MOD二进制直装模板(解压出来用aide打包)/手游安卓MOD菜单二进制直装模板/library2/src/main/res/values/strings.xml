@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="lib_name">library2</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>

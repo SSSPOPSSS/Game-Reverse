@@ -1,0 +1,180 @@
+----玄玄----
+
+
+cpp找到他输出那些，把这些替换进去
+"%0.2f,%0.2f,%0.2f,%0.2f,%f\n", 
+					r_x - (r_y - r_w) / 4,	// 1.x
+					r_y - (r_w - r_y) / 8,	// 2.y
+					(r_y - r_w) / 2,	// 3.w
+					(r_y - r_w),	// 4.h
+					jl         //距离
+					);--固定模板
+自己看着替换
+
+
+andlua绘图改成这样的
+画布.drawRoundRect(x-w/2+方框偏移, y - w , x+w/2+方框偏移, y + w, 10, 10, 方框)--方框1
+画布.drawRect(x-116+方框偏移,y_w-60,x+118+方框偏移,y_w-25,边框)--绘制上方信息框
+画布.drawLine(屏幕高()/2-150+方框偏移,120+4,x+30+方框偏移,y_w-64,射线)--绘制射线--x+30+方框偏移 为x轴移动，就是左右--y_w-64 为y轴移动，就是上下
+画布.drawText(jl.."m",x+方框偏移,y__w+25,文字)--绘制距离文字
+
+会的，自己弄不会，我也没办法π_π
+
+文字信息啥的自己填，前面给它命名，和调用颜色
+
+
+
+
+-----玄玄-----
+
+
+下面是模板
+--玄玄--
+
+cpp输出的设置为
+
+sprintf(b, "%f,%f,%f,%f,%f,%f,%d;\n", 
+                    r_x - (r_y - r_w) / 4,	// 1.x
+					r_y - (r_w - r_y) / 2,	// 2.y
+					(r_y - r_w) / 2,	// 3.w
+					(r_y - r_w),	// 4.h
+					jl,			// 5.距离
+				);
+
+
+
+
+
+画笔和绘图
+
+local 方框 = Paint()
+.setARGB(175, 255, 900, 255)
+.setStrokeWidth(2.5)
+.setAntiAlias(true)
+.setDither(true)
+.setStyle(Paint.Style.STROKE)
+
+local 射线 = Paint()
+.setARGB(175, 255, 255, 255)
+.setStrokeWidth(2.5)
+.setAntiAlias(true)
+.setDither(true)
+.setStyle(Paint.Style.FILL)
+
+local 边框 = Paint()
+.setARGB(120, 0, 0, 0)
+.setStrokeWidth(1)
+.setAntiAlias(true)
+.setDither(true)
+.setStyle(Paint.Style.FILL)
+
+
+
+
+血条=Paint()
+.setAntiAlias(true)
+.setStrokeCap(Cap.ROUND)
+.setStyle(Paint.Style.STROKE)
+.setStrokeWidth(3)
+.setColor(0xFFE37371)
+
+local 文字 = Paint()
+.setARGB(225, 255, 255, 255)
+.setAntiAlias(true)
+.setStrokeCap(Cap.ROUND)
+.setColor(0xffffffff)
+.setTextAlign(Paint.Align.CENTER)
+.setTextSize(25)
+.setFakeBoldText(true)
+.setColor(0xffffffff)
+
+local 人数=Paint()
+.setAntiAlias(true)
+.setStrokeCap(Cap.ROUND)
+.setColor(0xffffffff)
+.setTextAlign(Paint.Align.CENTER)
+.setTextSize(30)
+.setFakeBoldText(true)
+.setColor(0xffffffff)
+
+paint={方框,射线,边框,血量,血条,文字,人数}
+
+function 写入文件(路径,内容)
+  import "java.io.File"
+  f=File(tostring(File(tostring(路径)).getParentFile())).mkdirs()
+  io.open(tostring(路径),"w"):write(tostring(内容)):close()
+end
+
+local 名字画笔=Paint()
+.setAntiAlias(true)
+.setStrokeCap(Cap.ROUND)
+.setTextSize(20)
+.setFakeBoldText(true)
+.setColor(0xFF00FFFF)
+.setTextAlign(Paint.Align.CENTER)
+
+偏移.setOnSeekBarChangeListener{
+  onStartTrackingTouch=function()
+    --开始拖动
+  end,
+  onStopTrackingTouch=function()
+    方框偏移0=tostring(偏移.getProgress())
+    写入文件("/storage/emulated/0/py.log",方框偏移0)
+  end,
+  onProgressChanged=function()
+    --状态改变
+  end}
+
+
+
+mDraw=LimoDrawable{--创建LuaDrawable对象
+  view=window,--设置图层控件
+  硬件加速=true,--开启硬件加速
+  --自动刷新=true
+  onDraw=function(view,画布,画笔,self,fps,data)--控件对象 画布 画笔 LuaDrawable对象 获取FPS 内部数据表
+    if 绘制线程开关
+      local 人物数量=0--申明一个用于计算敌人数量的局部变量
+      local file=io.input("/storage/emulated/0/py.log")
+      local 方框偏移=io.read("*a")
+      -- print(方框偏移)
+      if 文件是否存在("/sdcard/b.log") then
+        for str io.lines "/sdcard/b.log"--读取b.log的每一行
+          str:split(',', function(w)--分割字符串,并存入datw
+            return tonumber(w)--如分割后的字符串不是数字，将返回nil
+          end,data)
+          local x,y,w,h,jl=data[1],data[2],data[3],data[4],data[5]
+          if x and y and w and h and jl
+            local y_w,y__w,w_2=y-w,y+w,w/2--缓存需要重复运算的数据
+            if w>0 then
+              local 人物数量=人物数量+1
+              if 绘制方框开关==true then
+                画布.drawRoundRect(x-w/2+方框偏移, y - w , x+w/2+方框偏移, y + w, 10, 10, 方框)
+              end
+              if 绘制天线开关 == true then
+                画布.drawLine(屏幕高()/2-150+方框偏移,120+4,x+30+方框偏移,y_w-64,射线)--绘制射线
+              end
+              if 对象距离开关 == true then
+                画布.drawRect(x-116+方框偏移,y_w-60,x+118+方框偏移,y_w-25,边框)--绘制外圈黑框		
+                画布.drawText(jl.."m",x+方框偏移,y__w+25,文字)--绘制距离字
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+}
+
+
+import "android.graphics.Paint$Cap"
+mDraw().paint--获取drawable内置画笔(FPS画笔)
+.setAntiAlias(true)--抗锯齿
+.setStrokeCap(Cap.ROUND)--圆润边角
+.setTextSize(50)--8dp字体大小
+.setTextAlign(Paint.Align.CENTER)--字体居中setColor(,0xffffffff)--画笔颜色
+.setFakeBoldText(true)--字体加粗
+.setColor(0xffffffff)
+
+
+
+---玄玄----

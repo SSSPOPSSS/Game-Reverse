@@ -1,0 +1,1 @@
+pm path com.tencent.tmgp.pubgmhd |sed -E  's/(.*):(.*)/\2/'|xargs pm install -r --abi arm64-v8a
